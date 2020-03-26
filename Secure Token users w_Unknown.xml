@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Secure Token users w/Unknown</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+# 24/02/2020 - F. Abeloos aka Travelling Tech Guy&#13;
+# travellingtechguy.eu&#13;
+&#13;
+declare -a secureTokens&#13;
+declare -a delete&#13;
+&#13;
+&#13;
+secureTokens=($(fdesetup list -extended | awk '{print $4}'))&#13;
+&#13;
+#echo ${secureTokens[@]}&#13;
+&#13;
+delete+=(USER)&#13;
+delete+=(Record)&#13;
+&#13;
+#echo ${delete[@]}&#13;
+&#13;
+for i in ${delete[@]}; do&#13;
+secureTokens=( "${secureTokens[@]/$i}" )&#13;
+done&#13;
+&#13;
+#echo ${secureTokens[@]}&#13;
+&#13;
+function join { local IFS="$1"; shift; echo "$*"; }&#13;
+&#13;
+secureTokensList=$(join , ${secureTokens[@]})&#13;
+&#13;
+echo $secureTokensList&#13;
+&#13;
+#Check if No Cryptocragic Users&#13;
+&#13;
+cryptoUsers=$(diskutil apfs listcryptousers /)&#13;
+&#13;
+if [[ $cryptoUsers == *"No cryptographic users"* ]]; then&#13;
+	echo "No Secure Token Holders"&#13;
+ 	result="No Secure Token Holders"&#13;
+&#13;
+elif [ $secureTokensList =="" ]; then&#13;
+&#13;
+	echo "Unknown Secure Token Holders"&#13;
+	result="Unknown Secure Token Holders"&#13;
+&#13;
+else&#13;
+&#13;
+	result=$secureTokensList&#13;
+	&#13;
+fi&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Bootstrap</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+bootstrap=$(profiles status -type bootstraptoken)&#13;
+&#13;
+if [[ $bootstrap == *"escrowed to server: YES"* ]]; then&#13;
+	echo "YES, Bootstrap escrowed"&#13;
+ 	result="YES"&#13;
+&#13;
+else&#13;
+	echo "NO, Bootstrap not escrowed"&#13;
+	result="NO"&#13;
+&#13;
+fi&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Jamf Admin Secure Token SysAdminCtl</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+&#13;
+mgtAdmin="jamfadmin"&#13;
+&#13;
+jamfAdminToken=$(sysadminctl -secureTokenStatus $mgtAdmin 2&gt;&amp;1 | awk '{print$7}')&#13;
+&#13;
+&#13;
+if [[ $jamfAdminToken == ENABLED ]]; then&#13;
+	echo "Admin has a token"&#13;
+ 	result="YES"&#13;
+&#13;
+else&#13;
+	result="NO"&#13;
+&#13;
+fi&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>

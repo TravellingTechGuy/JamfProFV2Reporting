@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>FileVault Deferred</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+fdesetupStatus=$(fdesetup status)&#13;
+&#13;
+if [[ $fdesetupStatus == *"Deferred enablement appears to be active"* ]]; then&#13;
+	echo "Deferred enablement active"&#13;
+ 	result="YES"&#13;
+&#13;
+else&#13;
+	echo "Deferred enablement not active"&#13;
+	result="NO"&#13;
+&#13;
+fi&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>

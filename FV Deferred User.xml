@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>FV Deferred User</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+fdesetupStatus=$(fdesetup status)&#13;
+#fdesetupStatus="Deferred enablement appears to be active for user 'ttg'"&#13;
+&#13;
+if [[ $fdesetupStatus == *"Deferred enablement appears to be active"* ]]; then&#13;
+	&#13;
+	echo "Deferred enablement active"&#13;
+&#13;
+	echo $fdesetupStatus&#13;
+&#13;
+	#deferredUser=($(fdesetup status | grep user))&#13;
+	deferredUser=$(echo $fdesetupStatus | sed 's/.*user\ //' | sed "s/'// " | sed "s/'// " | sed "s/\.// ")&#13;
+&#13;
+	echo $deferredUser&#13;
+&#13;
+ 	result="$deferredUser"&#13;
+&#13;
+else&#13;
+	echo "Deferred enablement not active"&#13;
+	result="NONE"&#13;
+&#13;
+fi&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>

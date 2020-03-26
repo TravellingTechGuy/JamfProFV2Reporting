@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Secure Token users</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+declare -a secureTokens&#13;
+declare -a delete&#13;
+&#13;
+&#13;
+secureTokens=($(fdesetup list -extended | awk '{print $4}'))&#13;
+&#13;
+#echo ${secureTokens[@]}&#13;
+&#13;
+delete+=(USER)&#13;
+delete+=(Record)&#13;
+&#13;
+#echo ${delete[@]}&#13;
+&#13;
+for i in ${delete[@]}; do&#13;
+secureTokens=( "${secureTokens[@]/$i}" )&#13;
+done&#13;
+&#13;
+#echo ${secureTokens[@]}&#13;
+&#13;
+function join { local IFS="$1"; shift; echo "$*"; }&#13;
+&#13;
+result=$(join , ${secureTokens[@]})&#13;
+&#13;
+echo "&lt;result&gt;$result&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>
